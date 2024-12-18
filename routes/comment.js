@@ -3,11 +3,12 @@ const router = express.Router();
 
 const commentController = require('../controllers/comment');
 
-router.get('', commentController.getAllComments);             // READ  => req GET
-router.get('/:id', commentController.getCommentById);         // READ  => req GET
-router.post('', commentController.createComment);             // CREATE  =>  HTTP, requete POST
-router.put('/:id', commentController.updateComment);          // UPDATE  =>  req PUT, PATCH
-router.delete('/:id', commentController.deleteCommentById);   // DELETE => req DELETE
+router.get('', commentController.getAllComments);                           // READ  => req GET
+router.get('/email/:email', commentController.getAllCommentsFromEmail);     // READ  => req GET
+router.get('/:id', commentController.getCommentById);                       // READ  => req GET
+router.post('', commentController.createComment);                           // CREATE  =>  HTTP, requete POST
+router.put('/:id', commentController.updateComment);                        // UPDATE  =>  req PUT, PATCH
+router.delete('/:id', commentController.deleteCommentById);                 // DELETE => req DELETE
 
 module.exports = router;
 

@@ -10,6 +10,17 @@ exports.getAllComments = (req, res, next) => {
         });
 }
 
+exports.getAllCommentsFromEmail = (req, res, next) => {
+    Comment.find({ email: req.params.email })
+        .then((comments) => {
+            res.status(200).json(comments);
+        })
+        .catch((error) => {
+            res.status(400).json({ error: error })
+        });
+}
+
+
 exports.getCommentById = (req, res, next) => {
     Comment.findById(req.params.id)
         .then((comment) => {
