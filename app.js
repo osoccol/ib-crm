@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
 const userRoutes = require('./routes/user');
 
@@ -12,10 +13,23 @@ app.use((req, res, next) => {
     next();
 });
 
-// app.use(
-// });
+const username = 'veingamedev';
+const password = 'dGA6G3mBYLM2chZa';
+
+const dbConnect = `mongodb+srv://${username}:${password}@cluster0.a1qcj.mongodb.net/sample_mflix?retryWrites=true&w=majority&appName=Cluster0`;
+
+mongoose.set('strictQuery', true);
+mongoose.connect(dbConnect, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('Success MONGODB');
+    })
+    .catch((error) => {
+        console.log('Unable to connect MONGODB');
+        console.error(error);
+    });
 
 app.use('/api/user', userRoutes);
+
 app.use('', (req, res) => {
     if (req.url === '/hello') {
         // Répondre avec 'Hello World'
