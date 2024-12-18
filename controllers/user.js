@@ -29,10 +29,38 @@ exports.deleteUserById = (req, res, next) => {
             res.status(400).json({ error: error })
         });
 }
-// CREATE  =>  HTTP, requete POST
 
-// READ  => req GET
+exports.createUser = (req, res, next) => {    
+    const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    });
+    user.save()
+        .then((success) => {
+            res.status(200).json(success);
+        })
+        .catch((error) => {
+            res.status(400).json({ error: error })
+        });
+}
 
-// UPDATE  =>  req PUT, PATCH
+exports.updateUser = (req, res, next) => {
+    // console.log(req);
+    
+    const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+    });
 
-// DELETE => req DELETE
+    user._id = req.body._id;
+    
+    User.updateOne({ _id: req.body._id }, user)
+        .then((success) => {
+            res.status(200).json(success);
+        })
+        .catch((error) => {
+            res.status(400).json({ error: error })
+        });
+}
